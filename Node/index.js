@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 })
 
 app.post("/email", async (req,res) => {
+  console.log(req.body.email);
   var email = req.body.email;
   var transporter = nodemailer.createTransport({
     host: 'mail.blitzfly.com',
