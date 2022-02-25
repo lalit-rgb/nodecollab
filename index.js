@@ -47,10 +47,10 @@ app.post("/email", async (req,res) => {
 }
 transporter.sendMail(mailoption, function(err,data){
     if(err){
-        console.log(str(err));
+        console.log(err);
     }else{
         console.log('mail sent!!!!');
-         res.sendD(err)
+        //  res.sendD(err)
     }
 })
     const output = `
