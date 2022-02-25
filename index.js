@@ -566,7 +566,6 @@ a[x-apple-data-detectors='true'] {
             console.log('mail sent!!!!');
         }
     })
-    res.redirect('/');
 })
 app.listen(3001, () => {console.log("app started at http://localhost:3001")})
 
