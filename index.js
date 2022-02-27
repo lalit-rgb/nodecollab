@@ -4,7 +4,9 @@ const bodyparser = require("body-parser");
 const nodemailer = require("nodemailer");
 var cors = require('cors');
 var ejs = require('ejs');
-var path = require('path')
+var path = require('path');
+const { use } = require("express/lib/application");
+require('dotenv').config();
 
 //view engine
 app.set("view engine", "ejs");
@@ -23,23 +25,31 @@ app.get("/", (req, res) => {
     res.render('nodemailer')
 })
 
+var host = process.env.HOST;
+var port = process.env.PORT;
+var user = process.env.USERNAME;
+var pass = process.env.PASS;
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: false,
+  auth:{
+      user: "myartnationofficial@gmail.com",
+      pass: "MAn@12345"
+  },
+  // tls:{
+  //     rejectUnauthorized:false,
+  // }
+});
+
 app.post("/email", async (req,res) => {
   console.log(req.body.email);
   var email = req.body.email;
-  var transporter = nodemailer.createTransport({
-    host: 'mail.blitzfly.com',
-    port: 587,
-    secure: false,
-    auth:{
-        user: 'test@blitzfly.com',
-        pass: '12345Abc'
-    },
-    tls:{
-        rejectUnauthorized:false,
-    }
-});
+
   var mailoption = {
-    from:'"MyArtNation" <test@blitzfly.com>',
+    from:`"MyArtNation" <${user}>`,
     to: 'lalit18151@gmail.com',
     subject:'THANKS!!!!',
     text:`he just subscribed to Myartnation ${email}`,
@@ -47,7 +57,8 @@ app.post("/email", async (req,res) => {
 }
 transporter.sendMail(mailoption, function(err,data){
     if(err){
-        console.log(err);
+      console.log("1")
+        console.log(err.message);
     }else{
         console.log('mail sent!!!!');
         //  res.sendD(err)
@@ -295,7 +306,7 @@ a[x-apple-data-detectors='true'] {
       <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:30px 20px 10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div class="v-text-align" style="color: black; line-height: 150%; text-align: center; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 150%;"><span style="font-family: Cabin, sans-serif; font-size: 16px; line-height: 24px;">Thank you for showing interest in MyArttNation. You will get early access to our website as soon as it  goes live. We are really happy to have you onboard. </span></p>
+    <p style="font-size: 14px; line-height: 150%;"><span style="font-family: Cabin, sans-serif; font-size: 16px; line-height: 24px;">Thank you for showing interest in MyArtNation. You will get early access to our website as soon as it  goes live. We are really happy to have you onboard. </span></p>
   </div>
 
       </td>
@@ -491,23 +502,24 @@ a[x-apple-data-detectors='true'] {
 </html>
 
     `
-    var transporter = nodemailer.createTransport({
-      host: 'mail.blitzfly.com',
-      port: 587,
-      secure: false,
-      auth:{
-          user: 'test@blitzfly.com',
-          pass: '12345Abc'
-      },
-      tls:{
-          rejectUnauthorized:false,
-      }
-  });
+  //   var transporter = nodemailer.createTransport({
+  //     service: 'gmail',
+  //     host: host,
+  //     port: port,
+  //     secure: false,
+  //     auth:{
+  //         user: user,
+  //         pass: pass
+  //     },
+  //     // tls:{
+  //     //     rejectUnauthorized:false,
+  //     // }
+  // });
       // send mail with defined transport object
     var mailoption = {
-        from:'"Thankyou" <test@blitzfly.com>',
+        from:`"Thankyou" <${user}>`,
         to: req.body.email,
-        subject:'nodemailer',
+        subject:'Thankyou',
         html: output,
         //text:`thanks ${name}, we have reciever your query and our agent will contact you any time between  ${time}`,
         // template: 'tamplate',
@@ -561,6 +573,7 @@ a[x-apple-data-detectors='true'] {
     }
     transporter.sendMail(mailoption, function(err,data){
         if(err){
+          console.log("2")
             console.log(err);
         }else{
             console.log('mail sent!!!!');
