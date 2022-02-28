@@ -581,6 +581,8 @@ a[x-apple-data-detectors='true'] {
     })
 })
 app.listen(3001, () => {console.log("app started at http://localhost:3001")})
+var server = app.listen;
+server.timeout = 2000;
 
 
 //<table id="u_content_button_1" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
