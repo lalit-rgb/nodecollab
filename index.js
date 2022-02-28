@@ -49,7 +49,7 @@ app.post("/email", async (req,res) => {
   var email = req.body.email;
 
   var mailoption = {
-    from:`"MyArtNation" <${user}>`,
+    from:`"MyArtNation" <myartnationofficial@gmail.com>`,
     to: 'lalit18151@gmail.com',
     subject:'THANKS!!!!',
     text:`he just subscribed to Myartnation ${email}`,
@@ -517,7 +517,7 @@ a[x-apple-data-detectors='true'] {
   // });
       // send mail with defined transport object
     var mailoption = {
-        from:`"Thankyou" <${user}>`,
+        from:`"Thankyou" <myartnationofficial@gmail.com>`,
         to: req.body.email,
         subject:'Thankyou',
         html: output,
